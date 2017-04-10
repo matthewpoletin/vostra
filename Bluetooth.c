@@ -33,7 +33,6 @@ void UARTUpdateBuffer(char* data)
 void UARTSendBuffer()
 {
 	uint8_t counter = strlen(TxBuffer);		// Счетчик
-	
 	// Цикл до передачи всех симвлолов
 	for (counter = 0; counter < strlen(TxBuffer); counter++)
 	{

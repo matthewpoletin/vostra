@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'vostra' 
- * Target:  'bluetooth' 
+ * Target:  'vostra' 
  */
 
 #ifndef RTE_COMPONENTS_H
