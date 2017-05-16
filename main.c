@@ -8,8 +8,8 @@
 #include "Accel.h"
 #include "Tools.h"
 
-void TIM_Configuration(void);		// Настройка таймера
-void ButtonConfiguration(void);	// Настройка кнопки
+void TIM_Configuration(void);	// настройка таймера
+void ButtonConfiguration(void);	// настройка кнопки
 
 unsigned int size = 0;			// количество поступающих поворотов
 bool directions[256];			// список поворотов
@@ -18,6 +18,8 @@ bool checked = false;			// флаг совершения поворота
 
 unsigned int range = 1200;		// диапазон значений поворота
 
+bool bEnableVibro = false;
+
 int main(void)
 {
 	char welcome_str[] = "Vostra Version 1.5\r\n";
@@ -25,17 +27,27 @@ int main(void)
 	
 	VibroInit();
 //	DisplayInit();
-//	LEDInit();
 	BluetoothInit();
-//	AccelInit();
+	AccelInit();
 //	TIM_Configuration();
 	ButtonConfiguration();
-	
-	Vibro1On();
-	Vibro2On();
-	
+		
 	while(true)
 	{
+		if(bEnableVibro)
+		{
+//			if(GetX() > 4094/2) Vibro1On();
+//			else Vibro1Off();
+			
+			if(GetY() > 4094/2)Vibro2On();
+			else Vibro2Off();
+		}
+		else
+		{
+//			Vibro1Off();
+			Vibro2Off();
+		}
+		
 		if(bReceivedData)	
 		{
 			Vibro1Toggle();
@@ -59,9 +71,13 @@ void ButtonConfiguration(void)
 	GPIOA->CRH &= ~(GPIO_CRH_CNF13 | GPIO_CRH_MODE13);	// Сброс настроек
 	GPIOA->CRH |= GPIO_CRH_CNF13_1;				// Включение режима с подтяжкой
 	
+	AFIO->EXTICR[3] |= AFIO_EXTICR4_EXTI13_PC;	// Настройка альтернативной функции на PC13
 	
 	EXTI->RTSR |= EXTI_RTSR_TR13; 				// Прерывание по восходящему фронту
+	EXTI->IMR |= EXTI_IMR_MR13;					// Разрешение прерывания по линии 13
 	
+	NVIC_EnableIRQ(EXTI15_10_IRQn); 			// Включение прерывания 
+	NVIC_SetPriority(EXTI15_10_IRQn, 0);		// Установка приоритета прерываний
 }
 
 // Обработчик прерываний нажатия кнопки
@@ -71,13 +87,11 @@ void EXTI15_10_IRQHandler()
 	
 	if ((GPIOC->IDR & GPIO_IDR_IDR13) > 0)
 	{
-		Vibro1Toggle();
-		Vibro2Toggle();
+		bEnableVibro = !bEnableVibro;
 		
-//		int tmp = GetX();
-//		char str[15];
-//		sprintf(str, "%d\r\n", tmp);
-//		UARTUpdateBuffer(str);
+		char str[20];
+		sprintf(str, "%d - %d - %d\r\n", GetX(), GetY(), GetZ());
+		UARTUpdateBuffer(str);
 	}
 	
 	EXTI->PR |= EXTI_PR_PR0;		// Сброс флага
