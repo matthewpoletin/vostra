@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>C:\Program Files (x86)\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0\Device\Include</IncludePath>
+              <IncludePath>.\Libraries</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -404,6 +404,21 @@
               <FileType>1</FileType>
               <FilePath>.\Accel.c</FilePath>
             </File>
+            <File>
+              <FileName>u8g_arm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\u8g_arm.c</FilePath>
+            </File>
+            <File>
+              <FileName>u8g_arm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\u8g_arm.h</FilePath>
+            </File>
+            <File>
+              <FileName>u8glib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\Libraries\u8glib\Objects\u8glib.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -443,7 +458,19 @@
           <targetInfo name="vostra"/>
         </targetInfos>
       </component>
+      <component Cclass="Device" Cgroup="StdPeriph Drivers" Csub="I2C" Cvendor="Keil" Cversion="3.5.0" condition="STM32F1xx STDPERIPH RCC">
+        <package name="STM32F1xx_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.1.0"/>
+        <targetInfos>
+          <targetInfo name="vostra"/>
+        </targetInfos>
+      </component>
       <component Cclass="Device" Cgroup="StdPeriph Drivers" Csub="RCC" Cvendor="Keil" Cversion="3.5.0" condition="STM32F1xx STDPERIPH">
+        <package name="STM32F1xx_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.1.0"/>
+        <targetInfos>
+          <targetInfo name="vostra"/>
+        </targetInfos>
+      </component>
+      <component Cclass="Device" Cgroup="StdPeriph Drivers" Csub="TIM" Cvendor="Keil" Cversion="3.5.0" condition="STM32F1xx STDPERIPH RCC">
         <package name="STM32F1xx_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="2.1.0"/>
         <targetInfos>
           <targetInfo name="vostra"/>
