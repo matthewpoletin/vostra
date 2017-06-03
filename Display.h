@@ -3,6 +3,12 @@
 
 #include "stm32f10x.h"		// Микроконтроллер
 
-void DisplayInit(void);		// Конфигурирование Дисплея
+#include <u8glib/u8g.h>
+#include "u8g_arm.h"
+
+static u8g_t u8g;
+
+void DisplayInit(void);		// Конфигурирование дисплея
+void DisplayDraw(void);		// Отрисовка изображения
 
 #endif	// DISPLAY
