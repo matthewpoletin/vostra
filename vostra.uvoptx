@@ -149,9 +149,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>109</LineNumber>
+          <LineNumber>120</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134220128</Address>
+          <Address>134220552</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -160,14 +160,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\vostra\main.c\109</Expression>
+          <Expression>\\vostra\main.c\120</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>42</LineNumber>
+          <LineNumber>40</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134222594</Address>
+          <Address>134223114</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -176,12 +176,12 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;2&gt;.\main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\vostra\main.c\42</Expression>
+          <Expression>\\vostra\main.c\40</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>113</LineNumber>
+          <LineNumber>46</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -375,18 +375,6 @@
       <bDave2>0</bDave2>
       <PathWithFileName>.\Libraries\u8glib\Objects\u8glib.lib</PathWithFileName>
       <FilenameWithoutPath>u8glib.lib</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>1</GroupNumber>
-      <FileNumber>9</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>.\Display.h</PathWithFileName>
-      <FilenameWithoutPath>Display.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

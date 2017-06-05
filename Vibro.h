@@ -1,16 +1,26 @@
 #ifndef VIBRO
 #define VIBRO
 
-#include "stm32f10x.h"		// Микроконтроллер
+#include "stm32f10x.h"		// микроконтроллер stm32f100rb
 
-void VibroInit(void);		// конфигурирование Вибромоторов
+#include "stdbool.h"		// библиотека булевых значений
 
-#define Vibro1On()		GPIOB->BSRR	|= GPIO_BSRR_BS3	// включение вибромотора 1
-#define Vibro1Off()		GPIOB->BSRR	|= GPIO_BSRR_BR3	// выключение вибромотора 1
-#define Vibro1Toggle()	GPIOB->ODR	^= GPIO_ODR_ODR3	// смена состояния вибромотора 1
+static bool bEnableVibro1 = false;	// начальный статус работы вибромотора 1
+static bool bEnableVibro2 = false;	// начальный статус работы вибромотора 2
 
-#define Vibro2On()		GPIOB->BSRR	|= GPIO_BSRR_BS9	// включение вибромотора 2
-#define Vibro2Off()		GPIOB->BSRR	|= GPIO_BSRR_BR9	// выключение вибромотора 2
-#define Vibro2Toggle()	GPIOB->ODR	^= GPIO_ODR_ODR9	// смена состояния вибромотора 2
+void Vibro1Init(void);		// конфигурирование первого вибромотора	
+void Vibro2Init(void);		// конфигурирование Вибромоторов
+
+void EnableVibro1(void);	// разрешение работы вибромотора 1
+void DisableVibro1(void);	// запрещение работы вибромотора 1
+void EnableVibro2(void);	// разрешение работы вибромотора 2
+void DisableVibro2(void);	// запрещение работы вибромотора 2
+
+void Vibro1On(void);		// включение вибромотора 1
+void Vibro1Off(void);		// выключение вибромотора 1
+void Vibro1Toggle(void);	// смена состояния вибромотора 1
+void Vibro2On(void);		// включение вибромотора 2
+void Vibro2Off(void);		// выключение вибромотора 2
+void Vibro2Toggle(void);	// смена состояния вибромотора 2
 
 #endif	// VIBRO

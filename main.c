@@ -1,13 +1,13 @@
-#include "stm32f10x.h"		// устройство
+#include "stm32f10x.h"		// микроконтроллер stm32f100rb
 
-#include "stdbool.h"
-#include "string.h"
+#include "stdbool.h"		// библиотека булевых значений
+#include "string.h"			// библиотека работы со строками
 
-#include "Vibro.h"
-#include "Display.h"
-#include "Bluetooth.h"
-#include "Accel.h"
-#include "Tools.h"
+#include "Vibro.h"			// работа с вибромоторами
+#include "Display.h"		// работа с дисплеем
+#include "Bluetooth.h"		// работа с bluetooth-модулем
+#include "Accel.h"			// работа с акселерометром
+#include "Tools.h"			// дополнительные инструменты
 
 void TIM_Configuration(void);	// настройка таймера
 void ButtonConfiguration(void);	// настройка кнопки
@@ -19,7 +19,7 @@ bool checked = false;			// флаг совершения поворота
 
 unsigned int range = 1200;		// диапазон значений поворота
 
-bool bEnableVibro = true;
+//bool bEnableVibro = true;
 
 bool reset = false;
 
@@ -28,17 +28,24 @@ int main(void)
 	char welcome_str[] = "Vostra Version 1.5\r\n";
 	UARTUpdateBuffer(welcome_str);
 	
-	VibroInit();
+	Vibro1Init();
+	Vibro2Init();
 	DisplayInit();
 	BluetoothInit();
 	AccelInit();
 //	TIM_Configuration();
 	ButtonConfiguration();
-			
+	
+	DisplayLogo();
+	delay(10000000);
+	
 	while(true)
 	{
 		//Vibro1On();
 		//Vibro2On();
+		
+		Vibro1Off();
+		Vibro2Off();
 		
 		if(reset)
 		{
@@ -51,24 +58,24 @@ int main(void)
 		}
 		
 		DisplayDraw();
-		if(bEnableVibro)
-		{
+//		if(bEnableVibro)
+//		{
 //			if(GetX() > 4094/2) Vibro1On();
 //			else Vibro1Off();
 			
-			if(GetY() > 4094/2)Vibro2On();
-			else Vibro2Off();
-		}
-		else
-		{
+		if(GetY() > 4094/2) Vibro2On();
+		else Vibro2Off();
+//		}
+//		else
+//		{
 //			Vibro1Off();
-			Vibro2Off();
-		}
+//			Vibro2Off();
+//		}
 		
 		if(bReceivedData)	
 		{
-			Vibro1Toggle();
-			Vibro2Toggle();
+//			Vibro1Toggle();
+//			Vibro2Toggle();
 						
 			memset(RxBuffer, 0, sizeof(RxBuffer));	// Очистка буфера
 			bReceivedData = false;					// Сброс статуса получения команды
@@ -106,7 +113,7 @@ void EXTI15_10_IRQHandler()
 	{
 		reset = true;
 			
-		bEnableVibro = !bEnableVibro;
+		//bEnableVibro1 = !bEnableVibro1;
 		
 		char str[20];
 		sprintf(str, "%d - %d - %d\r\n", GetX(), GetY(), GetZ());

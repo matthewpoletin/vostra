@@ -9,6 +9,8 @@
 static u8g_t u8g;
 
 void DisplayInit(void);		// Конфигурирование дисплея
+
+void DisplayLogo(void);
 void DisplayDraw(void);		// Отрисовка изображения
 
 #endif	// DISPLAY

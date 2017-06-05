@@ -419,11 +419,6 @@
               <FileType>4</FileType>
               <FilePath>.\Libraries\u8glib\Objects\u8glib.lib</FilePath>
             </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Display.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
