@@ -19,33 +19,36 @@ bool checked = false;			// флаг совершения поворота
 
 unsigned int range = 1200;		// диапазон значений поворота
 
+char btData[256];
+
 //bool bEnableVibro = true;
 
 bool reset = false;
 
 int main(void)
 {
-	char welcome_str[] = "Vostra Version 1.5\r\n";
-	UARTUpdateBuffer(welcome_str);
-	
-	Vibro1Init();
-	Vibro2Init();
+//	Vibro1Init();
+//	Vibro2Init();
+//	Vibro1Off();
+//	Vibro2Off();	
 	DisplayInit();
 	BluetoothInit();
 	AccelInit();
 //	TIM_Configuration();
 	ButtonConfiguration();
 	
+	char welcome_str[] = "Vostra Version 1.5\r\n";
+	UARTUpdateBuffer(welcome_str);
+	
 	DisplayLogo();
-	delay(10000000);
+	delay(1000000);
 	
 	while(true)
 	{
 		//Vibro1On();
 		//Vibro2On();
 		
-		Vibro1Off();
-		Vibro2Off();
+		UARTUpdateBuffer("100\r\n");
 		
 		if(reset)
 		{
@@ -63,8 +66,8 @@ int main(void)
 //			if(GetX() > 4094/2) Vibro1On();
 //			else Vibro1Off();
 			
-		if(GetY() > 4094/2) Vibro2On();
-		else Vibro2Off();
+//		if(GetY() > 4094/2) Vibro2On();
+//		else Vibro2Off();
 //		}
 //		else
 //		{
@@ -76,7 +79,7 @@ int main(void)
 		{
 //			Vibro1Toggle();
 //			Vibro2Toggle();
-						
+			
 			memset(RxBuffer, 0, sizeof(RxBuffer));	// Очистка буфера
 			bReceivedData = false;					// Сброс статуса получения команды
 		}

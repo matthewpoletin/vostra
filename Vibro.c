@@ -17,6 +17,8 @@ void Vibro2Init(void)
 	// Вибромотор 2
 	GPIOB->CRH &= ~(GPIO_CRH_CNF9 | GPIO_CRH_MODE9);// Сброс настроек
 	GPIOB->CRH |= GPIO_CRH_MODE9_1;					// Push-Pull (0b00), частота 2 МГц (0b10)
+	
+	bEnableVibro2 = true;
 }
 
 void EnableVibro1(void)
@@ -66,5 +68,6 @@ void Vibro2Off(void)
 
 void Vibro2Toggle(void)
 {
-	if(bEnableVibro2)	GPIOB->ODR	^= GPIO_ODR_ODR9;
+//	if(bEnableVibro2)	
+	GPIOB->ODR	^= GPIO_ODR_ODR9;
 }

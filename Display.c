@@ -1,5 +1,7 @@
 #include "Display.h"
 
+#include "Bluetooth.h"
+
 unsigned int hours = 4;
 unsigned int minutes = 20;
 unsigned int seconds = 0;
@@ -166,6 +168,9 @@ void DisplayDraw(void)
 		u8g_DrawBitmapP(&u8g, 0, 0, 1, 8, rook_bitmap);
 		
 		u8g_DrawXBM(&u8g, 0, 20, 13, 9, envelopeBitmap);
+		
+		u8g_SetFont(&u8g, u8g_font_freedoomr10r);
+		u8g_DrawStr(&u8g, 40, 60, RxBuffer);
 		
 //		if(2 <= hours || hours <= 4) u8g_SleepOff(&u8g);
 //		else u8g_SleepOn(&u8g);
