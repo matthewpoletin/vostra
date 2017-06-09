@@ -1,12 +1,8 @@
 #ifndef TOOLS
 #define TOOLS
 
-#include "stm32f10x.h"		// Микроконтроллер
+#include "stm32f10x.h"		// микроконтроллер stm32f100
 
-// Задержка на заданное количество счета
-void delay(uint32_t delayTime)
-{
-	for(; 0 < delayTime; delayTime--) {}
-}
+void delay(uint32_t delayTime);		// Задержка на заданное количество счета
 
 #endif	// TOOLS

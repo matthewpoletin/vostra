@@ -415,9 +415,24 @@
               <FilePath>.\u8g_arm.h</FilePath>
             </File>
             <File>
+              <FileName>Button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Button.c</FilePath>
+            </File>
+            <File>
+              <FileName>Tools.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Tools.c</FilePath>
+            </File>
+            <File>
               <FileName>u8glib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>.\Libraries\u8glib\Objects\u8glib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>Interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Interface.c</FilePath>
             </File>
           </Files>
         </Group>

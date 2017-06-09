@@ -1,9 +1,15 @@
 #include "Bluetooth.h"
 
+#include "stdio.h"			// обработка строк
+
+#include "Interface.h"		// работа с интерфейсом
+
 char RxBuffer[RX_BUFF_SIZE];
 char TxBuffer[TX_BUFF_SIZE];
-bool bReceivedData = false;
-bool bSendData = false;
+bool bReceivedData = false;		// Есть необработанные данные буфера
+bool bSendData = false;			// Нужно отправить данные буфера
+
+extern unsigned int hours;
 
 void BluetoothInit(void)
 {
@@ -16,7 +22,9 @@ void BluetoothInit(void)
 	GPIOA->CRH |= (GPIO_CRH_CNF9_1 | GPIO_CRH_MODE9_1);	// Push-Pull (00), частота 2 МГц (10)
 	//Оставляем PA10 настроен по умолчанию
 	
-	USART1->BRR = 0x9C4;						// Настраиваем частоту тактирования
+	//USART1->BRR = 0x9C4;						// Настраиваем частоту тактирования
+	USART1->BRR = 0x34D;						// Настраиваем частоту тактирования
+	
 	USART1->CR1 |= USART_CR1_UE;				// Включение USART
 	USART1->CR1 |= USART_CR1_TE | USART_CR1_RE;	// Включение приемник и передатчик
 	USART1->CR1 |= USART_CR1_RXNEIE;			// Включение прерывания по поступлению данных
@@ -26,13 +34,15 @@ void BluetoothInit(void)
 
 void UARTUpdateBuffer(char* data)
 {
-	strcpy(&TxBuffer[0], data);
+	strcat(TxBuffer, data);
+	//strcpy(&TxBuffer[0], data);
 	bSendData = true;
 }
 
 void UARTSendBuffer()
 {
-	uint8_t counter = strlen(TxBuffer);		// Счетчик
+	strcat(TxBuffer, "\r\n");
+	uint8_t counter;		// Счетчик
 	// Цикл до передачи всех симвлолов
 	for (counter = 0; counter < strlen(TxBuffer); counter++)
 	{
@@ -55,6 +65,48 @@ void USART1_IRQHandler(void)
 		{
 			RxBuffer[strlen(RxBuffer)] = tmp;
 		}
-		else bReceivedData = true;		// Сообщение о приёме
+		else bReceivedData = true;			// Сообщение о приёме
+	}
+}
+
+void BluetoothUpdate(void)
+{
+	if(bReceivedData)	
+	{
+		InputProcessing();
+				
+		memset(RxBuffer, 0, sizeof(RxBuffer));	// Очистка буфера приёма
+		bReceivedData = false;					// Установка статуса обработки данных
+	}
+	if(bSendData)
+	{
+		UARTSendBuffer();
+	}
+}
+
+void InputProcessing(void)
+{
+	char command[10];
+	unsigned int parameter; // TODO: поменять на char
+	
+	sscanf(RxBuffer, "%[^:]: %d;\n", command, &parameter);
+	
+	if(strcmp(command, "hours") == 0)
+	{
+		hours = parameter;
+		UARTUpdateBuffer("Часы выставлены");
+	}
+	else if(strcmp(command, "minutes") == 0)
+	{
+		minutes = parameter;
+		seconds = 0;
+		UARTUpdateBuffer("Минуты выставлены");
+	}
+	else
+	{
+		// TODO: добавить вывод сообщения об ошибке
+		UARTUpdateBuffer("Неверная команда: \"");
+		UARTUpdateBuffer(RxBuffer);
+		UARTUpdateBuffer("\"");
 	}
 }
