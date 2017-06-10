@@ -44,7 +44,7 @@ int main(void)
 	UARTUpdateBuffer(welcomeString);
 	
 	DisplayLogo();
-	delay(1000000);
+	delay(5000000);
 	
 	while(true)
 	{

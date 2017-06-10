@@ -1,6 +1,7 @@
 #include "Bluetooth.h"
 
 #include "stdio.h"			// обработка строк
+#include <stdlib.h>			// преобразование форматов
 
 #include "Interface.h"		// работа с интерфейсом
 
@@ -10,6 +11,7 @@ bool bReceivedData = false;		// Есть необработанные данны
 bool bSendData = false;			// Нужно отправить данные буфера
 
 extern unsigned int hours;
+extern int unreadMessages;
 
 void BluetoothInit(void)
 {
@@ -87,20 +89,64 @@ void BluetoothUpdate(void)
 void InputProcessing(void)
 {
 	char command[10];
-	unsigned int parameter; // TODO: поменять на char
+	char parameter[10];
+	//unsigned int parameter; // TODO: поменять на char
 	
-	sscanf(RxBuffer, "%[^:]: %d;\n", command, &parameter);
+//	sscanf(RxBuffer, "%[^:]: %s;\n", command, parameter);
+	
+	sscanf(RxBuffer, "%[^:]: %[^;];\n", command, parameter);
 	
 	if(strcmp(command, "hours") == 0)
 	{
-		hours = parameter;
+		//hours = parameter;
 		UARTUpdateBuffer("Часы выставлены");
 	}
 	else if(strcmp(command, "minutes") == 0)
 	{
-		minutes = parameter;
+		//minutes = parameter;
 		seconds = 0;
 		UARTUpdateBuffer("Минуты выставлены");
+	}
+	else if(strcmp(command, "messages") == 0)
+	{
+		//unreadMessages += parameter;
+		int temp = atoi(parameter);
+		unreadMessages += temp;
+		if (unreadMessages < 0) unreadMessages = 0;
+		UARTUpdateBuffer("Добавлены сообщения");
+	}
+	else if(strcmp(command, "temperature") == 0)
+	{
+		float temp = atof(parameter);
+		if(-100 < temp && temp < 100)
+		{			
+			temperatureCelc = temp;
+			//temperatureCelc = parameter;
+			UARTUpdateBuffer("Температура выставлена");
+		}
+		else
+		{
+			UARTUpdateBuffer("Ошибка выставления температуры");
+		}
+	}
+	else if(strcmp(command, "weather") == 0)
+	{
+		if(strcmp(parameter, "sunny") == 0)
+		{
+			weather = wtSunny;
+			UARTUpdateBuffer("Солнечно");
+		}
+		else if(strcmp(parameter, "cloudy") == 0)
+		{
+			weather = wtCloudy;
+			UARTUpdateBuffer("Облачно");
+		}
+		else if(strcmp(parameter, "rainy") == 0)
+		{
+			weather = wtRainy;
+			UARTUpdateBuffer("Дождливо");
+		}
+		UARTUpdateBuffer("Выставлена погода");
 	}
 	else
 	{

@@ -16,25 +16,22 @@
 
 //char data[256];
 
-enum weatherType
-{
-	wtDefault = 1,
-	wtSunny,
-	wtRainy,
-	wtCloudy
-};
+//enum weatherType
+//{
+//	wtDefault = 1,
+//	wtSunny,
+//	wtRainy,
+//	wtCloudy
+//};
 
-enum weatherType weather = wtRainy;
+//enum weatherType weather = wtRainy;
 
-// Температура
-float temperatureCelc = +15.3f;
-bool bUseFahrenheit = false;
-//T(°F) = T(°C) × 9/5 + 32
-float temperatureFahr;
-char temperatureString[10];
-
-char unreadMessagesString[2];
-unsigned int unreadMessages = 1;
+//// Температура
+//float temperatureCelc = +15.3f;
+//bool bUseFahrenheit = false;
+////T(°F) = T(°C) × 9/5 + 32
+//float temperatureFahr;
+//char temperatureString[10];
 
 void DisplayInit(void)
 {
@@ -111,9 +108,9 @@ void DisplayDraw(void)
 		
 		// Сообщения
 		u8g_DrawXBM(&u8g, 0, 20, envelopeBitmapWidth, envelopeBitmapHeight, envelopeBitmap);
-		u8g_SetColorIndex(&u8g, 0);		// Обратный цвет
-		if(unreadMessages > 0)
+		if(unreadMessages != 0)
 		{
+			u8g_SetColorIndex(&u8g, 0);		// Обратный цвет
 			u8g_DrawDisc(&u8g, 0+envelopeBitmapWidth, 20+envelopeBitmapHeight, 6, U8G_DRAW_ALL);
 			u8g_SetColorIndex(&u8g, 1);		// Прямой цвет
 			u8g_DrawCircle(&u8g, 0+envelopeBitmapWidth, 20+envelopeBitmapHeight, 6, U8G_DRAW_ALL);
